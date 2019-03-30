@@ -128,8 +128,15 @@ plot_strandSpecific6mA(10000,4)
 # wilcox test indicate that 6mA enrich in one strand.
 group1 = c(df1[which(df1$SameDir > df1$DiffDir), ][, 2], df1[which(df1$SameDir <df1$DiffDir), ][, 3])
 group2 = c(df1[which(df1$SameDir < df1$DiffDir), ][, 2], df1[which(df1$SameDir >df1$DiffDir), ][, 3])
-boxplot(x = data.frame(group1,group2), ylim=c(0,0.08),col=brewer.pal(2,"Greens"), ylab="6mA Occupancy", xlab="6mA always enrich in one strand")
-text(x=0.05,labels = "   pvalue < 2.2e-16",pos = 4)
+x = data.frame(group1,group2)
+library(ggstatsplot)
+library(tidyverse)
+xx <- gather(x);
+xx$key <- as.factor(xx$key)
+## use ggbetweenstats for stataitic analysis
+ggbetweenstats(xx, x = key, y=value, notch = T) + xlab("groups") + ylab("Methylation Occupancy")
+# boxplot(x = data.frame(group1,group2), ylim=c(0,0.08),col=brewer.pal(2,"Greens"), ylab="6mA Occupancy", xlab="6mA always enrich in one strand")
+# text(x=0.05,labels = "   pvalue < 2.2e-16",pos = 4)
 # RColorBrewer::display.brewer.all()
 ### Non-dependence sample t-test and wilcox test for samDir_6mAFra & diffDir_6mAFra
 
