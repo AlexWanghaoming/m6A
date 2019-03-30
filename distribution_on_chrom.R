@@ -1,3 +1,4 @@
+# plot m6A distribution in FO
 library("Biostrings")
 fo_genome <- readDNAStringSet("/Users/alexwang/data/pacbio/fo/Fot1_assembly.fasta",'fasta')
 scaffold_names <- names(fo_genome)
